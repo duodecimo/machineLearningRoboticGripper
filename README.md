@@ -6,3 +6,5 @@ The gestures are trainned by a deep learning neural network.
 The resulting model is used to predict the meaning of a gesture.
 
 To learn more about this project, it is strongly suggested to visit the **Wiki**.
+
+You can visit the [project main page](https://duodecimo.github.io/machineLearningRoboticGripper/)
