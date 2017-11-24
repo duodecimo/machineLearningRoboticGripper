@@ -31,4 +31,4 @@ Finally, the user should clone this repository (if someone is reading this here,
 
 ## Knowing what to expect
 
-There is a very rudimentary video of the project working on youtube (portuguese spoken, but even if u do not speaks portuguese, the visual is there). You can watch it [here](https://youtu.be/2g8e_4U-850).
+There is a very rudimentary video of the project working on youtube (portuguese spoken, but even if you do not speak portuguese, the visual is there). You can watch it [here](https://youtu.be/2g8e_4U-850).
