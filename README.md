@@ -9,10 +9,13 @@ The resulting model is used to predict the meaning of a gesture.
 
 To be able to run this project, users will definitely need some materials (or equivalent stuff): 
   - Arduino prototyping board (i.e. Uno, Leonardo, etc)
-  - A USB cable for the Arduino board.
-  - A protoboard
-  - A bunch of jumpers. (at least 16)
-  - A robotic gripper with 4 servos (movements: left, right, foward, back, up, down, grip, loose).
+  - USB cable for the Arduino board.
+  - protoboard
+  - bunch of jumpers. (at least 16)
+  - Robotic gripper with 4 servos (movements: left, right, foward, back, up, down, grip, loose).
+  - External font with 5 volts and 2.5A output.
+  - Desktop computer (at least i3 5th generation or equivalent)
+  - External webcam (a decent one)
 
 ## Installation
 
@@ -23,3 +26,9 @@ Once again, if you a re new to anaconda you can learn how to create an environme
 this should be enough to run the project python code.
 
 Users should install also a [Arduino IDE](https://www.arduino.cc/en/Main/Software).
+
+Finally, the user should clone this repository (if someone is reading this here, at least must know github. There are instructions on github site how to clone a project).
+
+## Knowing what to expect
+
+There is a very rudimentary video of the project working on youtube (portuguese spoken, but even if u do not speaks portuguese, the visual is there). You can watch it [here](https://youtu.be/2g8e_4U-850).
