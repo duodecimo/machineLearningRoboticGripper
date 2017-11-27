@@ -2,7 +2,7 @@ import cv2, os
 import numpy as np
 import matplotlib.image as mpimg
 import random
-
+from keras.utils import np_utils
 
 #IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS = 66, 200, 3
 #IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS = 480, 640, 3
@@ -107,8 +107,8 @@ def batch_generator(image_paths, ground_truths, batch_size, is_training):
     Generate training image give image paths and associated steering angles
     """
     images = np.empty([batch_size, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS])
-    #truths = np.empty(batch_size)
-    truths = np.zeros([batch_size, 9]) # 9 = number of classes
+    truths = np.empty(batch_size)
+    #truths = np.zeros([batch_size, 9]) # 9 = number of classes
     while True:
         i = 0
         #for index in np.random.permutation(image_paths.shape[0]):
@@ -126,11 +126,10 @@ def batch_generator(image_paths, ground_truths, batch_size, is_training):
                 image = load_image(image_paths[index]) 
             # add the image and ground truth to the batch
             images[i] = preprocess(image)
-            #truths[i] = ground_truth
-            truths[i, ground_truth] = 1
+            truths[i] = ground_truth
+            #truths[i, ground_truth] = 1
             i += 1
             if i == batch_size:
                 break
-        print('y shape from generator: ', truths.shape())
-        yield images, truths
+        yield images, np_utils.to_categorical(truths, 9)
 

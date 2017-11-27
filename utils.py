@@ -2,6 +2,7 @@ import cv2, os
 import numpy as np
 import matplotlib.image as mpimg
 import random
+from keras.utils import np_utils
 
 
 #IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS = 66, 200, 3
@@ -129,5 +130,6 @@ def batch_generator(image_paths, ground_truths, batch_size, is_training):
             i += 1
             if i == batch_size:
                 break
-        yield images, truths
+        #yield images, truths
+        yield images, np_utils.to_categorical(truths, 9)
 
