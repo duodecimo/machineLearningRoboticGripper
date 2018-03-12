@@ -25,7 +25,7 @@ def load_images_from_folder(folder, result, images, results):
 def load_data(args):
   images = []
   results =[]
-  labels = ['nothing', 'left', 'right', 'grip', 'loose', 'up', 'down', 'front', 'back']
+  labels = ['nothing', 'left', 'right', 'grip', 'loose', 'up', 'down', 'foward', 'back']
   #load a list of images and a corresponding list of results (images=640x480)
   for counter in range(0,8):
     folder = os.path.join(args.capture_dir, labels[counter])

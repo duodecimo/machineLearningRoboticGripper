@@ -6,7 +6,7 @@ import argparse
 from datetime import datetime
 import shutil
 
-def show_webcam(mirror=False):
+def show_webcam(args, mirror=False):
   frequency = 100 # Hertz
   duration  = 50 # milliseconds
   cam = cv2.VideoCapture(0)
@@ -28,7 +28,8 @@ def show_webcam(mirror=False):
       timestamp = timestamp + '.jpg'
       image_filename = os.path.join(args.image_folder, timestamp)
       print(image_filename)
-      cv2.imwrite(image_filename, img)
+      if args.image_folder != '':
+        cv2.imwrite(image_filename, img)
       start_time = time.time()
     key = np.int16(cv2.waitKey(1))
     if key == 27:
@@ -36,7 +37,7 @@ def show_webcam(mirror=False):
   cv2.destroyAllWindows()
 
 def main():
-  show_webcam(mirror=True)
+  show_webcam(args, mirror=True)
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='Garra Robotica')
