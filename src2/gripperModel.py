@@ -26,17 +26,20 @@ def load_data(args):
   images = []
   results =[]
   labels = ['nothing', 'left', 'right', 'grip', 'loose', 'up', 'down', 'front', 'back']
-
   #load a list of images and a corresponding list of results (images=640x480)
-  images, results = load_images_from_folder('capt2/nothing/', 0, images, results)
-  images, results = load_images_from_folder('capt2/left/', 1, images, results)
-  images, results = load_images_from_folder('capt2/right/', 2, images, results)
-  images, results = load_images_from_folder('capt2/grip/', 3, images, results)
-  images, results = load_images_from_folder('capt2/loose/', 4, images, results)
-  images, results = load_images_from_folder('capt2/up/', 5, images, results)
-  images, results = load_images_from_folder('capt2/down/', 6, images, results)
-  images, results = load_images_from_folder('capt2/front/', 7, images, results)
-  images, results = load_images_from_folder('capt2/back/', 8, images, results)
+  for counter in range(0,8):
+    folder = os.path.join(args.capture_dir, labels[counter])
+    images, results = load_images_from_folder(folder, counter, images, results)
+  #load a list of images and a corresponding list of results (images=640x480)
+  #images, results = load_images_from_folder('capt2/nothing/', 0, images, results)
+  #images, results = load_images_from_folder('capt2/left/', 1, images, results)
+  #images, results = load_images_from_folder('capt2/right/', 2, images, results)
+  #images, results = load_images_from_folder('capt2/grip/', 3, images, results)
+  #images, results = load_images_from_folder('capt2/loose/', 4, images, results)
+  #images, results = load_images_from_folder('capt2/up/', 5, images, results)
+  #images, results = load_images_from_folder('capt2/down/', 6, images, results)
+  #images, results = load_images_from_folder('capt2/front/', 7, images, results)
+  #images, results = load_images_from_folder('capt2/back/', 8, images, results)
       
   print("Images: ", len(images))
   print("Results: ", len(results))
@@ -51,9 +54,10 @@ def load_data(args):
 
   # if we wish to check some of the images, just change de index value
   # note that the index can't be bigger than the number of images -1
-  cv2.imshow('Capture', cv2.imread(X_train[5]))
-  print(X_train[5])
-  print(labels[y_train[5]])
+  checkIndex = 40
+  cv2.imshow('Capture', cv2.imread(X_train[checkIndex]))
+  print(X_train[checkIndex])
+  print(labels[y_train[checkIndex]])
   cv2.waitKey(0)
   cv2.destroyAllWindows()
   sys.exit(0)

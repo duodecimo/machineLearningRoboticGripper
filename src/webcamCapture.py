@@ -9,7 +9,7 @@ import shutil
 def show_webcam(mirror=False):
   frequency = 100 # Hertz
   duration  = 50 # milliseconds
-  cam = cv2.VideoCapture(0)
+  cam = cv2.VideoCapture(1)
   time.sleep(0.5)
   start_time = time.time()
   while True:
