@@ -51,9 +51,9 @@ def load_data(args):
 
   # if we wish to check some of the images, just change de index value
   # note that the index can't be bigger than the number of images -1
-  cv2.imshow('Capture', cv2.imread(X_train[80]))
-  print(X_train[80])
-  print(labels[results[80]])
+  cv2.imshow('Capture', cv2.imread(X_train[5]))
+  print(X_train[5])
+  print(labels[y_train[5]])
   cv2.waitKey(0)
   cv2.destroyAllWindows()
   sys.exit(0)
