@@ -12,12 +12,14 @@ from keras.models import load_model
 
 import utils
 
-def startOperation(args, mirror=False):
+def startOperation(arduino=False, mirror=False):
   #start serial
-  if args.serial != '':
+  if arduino:
     ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
     print('Serial connection: ', ser.name)
-
+  else:
+    print('Testing the prediction only,not using arduino.')
+    ser = None
   #start the camera
   frequency = 100 # Hertz
   duration  = 50 # milliseconds
@@ -39,7 +41,7 @@ def startOperation(args, mirror=False):
         img = cv2.flip(img, 1)
       cv2.imshow('my webcam', img)
       # predict
-      predict(args, ser, img)
+      predict(arduino, ser, img)
       start_time = time.time()
     key = np.int16(cv2.waitKey(1))
     if key == 27:
@@ -47,11 +49,10 @@ def startOperation(args, mirror=False):
   cv2.destroyAllWindows()
 
 
-def predict(args, ser, image):
+def predict(arduino, ser, image):
     # The current image of gesture
     gc = ' '
-    gi = 0
-    labels = ['nothing', 'left', 'right', 'grip', 'loose', 'up', 'down', 'foward', 'back']
+    labels = ['nothing', 'left', 'right', 'grip', 'loose', 'foward', 'back', 'up', 'down']
 
     try:
         image = utils.preprocess(image) # apply the preprocessing
@@ -59,49 +60,53 @@ def predict(args, ser, image):
         # predict the gesture
         gesture = float(model.predict(image, batch_size=1))
         print('gesture prediction: ', round(gesture), ' <- ', gesture)
+        gc = ' '
+        gn = 'failed!'
         if(gesture <= 0.8):
-          gc = 'n'; gi = 0;
+          gc = 'n'
+          gn = labels[0]
         elif(gesture <= 1.8):
-          gc = 'l'; gi = 1;
+          gc = 'l'
+          gn = labels[1]
         elif(gesture <= 2.8):
-          gc = 'r'; gi = 2;
+          gc = 'r'
+          gn = labels[2]
         elif(gesture <= 3.8):
-          gc = 'g'; gi = 3;
+          gc = 'g'
+          gn = labels[3]
         elif(gesture <= 4.8):
-          gc = 'o'; gi = 4;
-        elif(gesture <= 7.8):
-          gc = 'u'; gi = 5;
-        elif(gesture <= 8.8):
-          gc = 'd'; gi = 6;
-        elif(gesture <= 5.8):
-          gc = 'f'; gi = 7;
+          gc = 'o'
+          gn = labels[4]
+        elif(gesture <= 5.9):
+          gc = 'f'
+          gn = labels[5]
         elif(gesture <= 6.8):
-          gc = 'b'; gi = 8;
+          gc = 'b'
+          gn = labels[6]
+        elif(gesture <= 7.8):
+          gc = 'u';
+          gn = labels[7]
+        elif(gesture <= 8.8):
+          gc = 'd'
+          gn = labels[8]
         if(gesture != ' '):
-          print('gesture: ', gc, ' - ', labels[gi])
-          #ser.write(bytes(chr(gc), 'utf-8'))
-          if args.serial != '':
+          print('gesture: codigo: ', gc, ' nome: ', gn)
+          if arduino:
             ser.write(bytes(gc, 'utf-8'))
           time.sleep(.02)
     except Exception as e:
         print(e)
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Remote Driving')
+    parser = argparse.ArgumentParser(description='Robotic Gripper Operation')
     parser.add_argument(
         'model',
         type=str,
         help='Path to model h5 file. Model should be on the same path.'
     )
-    parser.add_argument(
-        'serial',
-        type=str,
-        default = '',
-        help='Path to arduino serial, example: /dev/ttyACM0 .'
-    )
     args = parser.parse_args()
 
     model = load_model(args.model)
-
-    startOperation(args, mirror=false)
+    arduino = False
+    startOperation(arduino=False, mirror=True)
 

@@ -10,6 +10,7 @@ import argparse
 import os
 import cv2
 import sys
+from random import randint
 
 np.random.seed(0)
 
@@ -54,13 +55,18 @@ def load_data(args):
 
   # if we wish to check some of the images, just change de index value
   # note that the index can't be bigger than the number of images -1
-  checkIndex = 40
-  cv2.imshow('Capture', cv2.imread(X_train[checkIndex]))
-  print(X_train[checkIndex])
-  print(labels[y_train[checkIndex]])
-  cv2.waitKey(0)
-  cv2.destroyAllWindows()
-  sys.exit(0)
+  print('press ESC to stop viewing random images and continue to learning routine.')
+  print('press ENTER to see another random image from trainning set.')
+  key = 0
+  while key!=27 :
+    checkIndex = randint(0, len(X_train)-1)
+    cv2.imshow('Capture', cv2.imread(X_train[checkIndex]))
+    print(X_train[checkIndex])
+    print(labels[y_train[checkIndex]])
+    key = np.int16(cv2.waitKey(0))
+    if key == 27:
+      cv2.destroyAllWindows()
+      #sys.exit(0)
 
   return X_train, X_valid, y_train, y_valid
 
